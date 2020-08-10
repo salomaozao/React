@@ -5,30 +5,39 @@ export default class NumbersSlider extends React.Component {
         name: "Bob",
         age: "21",
         height: "180",
-        check: false
+        rememberMe: false
     };
-
-    Show = () => { console.log(this.state) }
 
     HandleInput = (event) => {
       console.log(event.target.name, event.target.value);
       
       if(event.target.name === "name"){
-        this.setState({ name: event.target.value});
+        this.setState({ name: event.target.value})
       } else if(event.target.name === "age"){
         this.setState({ age: event.target.value})
       } else if(event.target.name === "height"){
         this.setState({ height: event.target.value})
+      } else if(event.target.name === "rememberMe"){
+        this.setState({ rememberMe: event.target.isChecked})
       }
+    }
+
+    HandleSubmit = (event) => {
+      event.preventDefault();
+      console.log(this.state)
     }
 
   render() {
     return (
-      <div>
-        Nome: <input name="name" onChange={this.HandleInput} />
-        Idade: <input name="age" onChange={this.HandleInput} />
-        Altura: <input name="height" onChange={this.HandleInput} /> <br />
-        Mantenha me postado <input type="checkbox" onClick={this.HandleInput} />
+      <form method="GET" onSubmit={this.HandleSubmit}>
+        Nome: <input type="input" name="name" 
+          value={this.state.name} onChange={this.HandleInput} />
+
+        Idade: <input type="number" name="age" 
+          value={this.state.age} onChange={this.HandleInput} />
+
+        Altura: <input type="number" name="height" value={this.state.height} onChange={this.HandleInput} /> <br />
+        Mantenha me postado <input type="checkbox" name="rememberMe" value={this.state.rememberMe} onChange={this.HandleInput} />
 
         <br />
         {this.state.name}
@@ -37,11 +46,11 @@ export default class NumbersSlider extends React.Component {
         <br />
         {this.state.height}
         <br />
-        {this.state.check}
+        {this.state.rememberMe}
         <br />
 
-        <button>Enviar!</button>
-      </div>
+        <button type="submit">Enviar!</button>
+      </form>
     );
   }
 }
